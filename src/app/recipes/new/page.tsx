@@ -51,8 +51,12 @@ export default function NewRecipePage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const value = e.target.type === "number" ? parseInt(e.target.value) : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
+    if (e.target.type === "number") {
+      const parsed = parseInt(e.target.value);
+      setFormData({ ...formData, [e.target.name]: isNaN(parsed) ? 0 : parsed });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   return (
