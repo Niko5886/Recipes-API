@@ -36,12 +36,12 @@ export default function LoginPage() {
       {error && <div className="bg-red-900/50 text-red-200 border border-red-800 p-3 rounded-md mb-4">{error}</div>}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <label className="block text-sm mb-1 text-slate-300">Имейл</label>
-          <input type="email" required className="w-full bg-slate-950 border border-slate-700 rounded-md px-4 py-2" value={email} onChange={e => setEmail(e.target.value)} />
+          <label htmlFor="email" className="block text-sm mb-1 text-slate-300">Имейл</label>
+          <input id="email" type="email" required className="w-full bg-slate-950 border border-slate-700 rounded-md px-4 py-2" value={email} onChange={e => setEmail(e.target.value)} />
         </div>
         <div>
-          <label className="block text-sm mb-1 text-slate-300">Парола</label>
-          <input type="password" required className="w-full bg-slate-950 border border-slate-700 rounded-md px-4 py-2" value={password} onChange={e => setPassword(e.target.value)} />
+          <label htmlFor="password" className="block text-sm mb-1 text-slate-300">Парола</label>
+          <input id="password" type="password" required className="w-full bg-slate-950 border border-slate-700 rounded-md px-4 py-2" value={password} onChange={e => setPassword(e.target.value)} />
         </div>
         <button type="submit" className="bg-cyan-600 hover:bg-cyan-500 text-white font-medium py-2 rounded-md transition mt-2">Влез</button>
       </form>

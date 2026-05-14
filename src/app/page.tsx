@@ -21,8 +21,7 @@ function HomeContent() {
   const tag = searchParams.get("tag") || "";
 
   useEffect(() => {
-    setSearchVal(search);
-    setTagVal(tag);
+    let active = true;
 
     const q = new URLSearchParams();
     q.set("page", page.toString());
@@ -30,14 +29,19 @@ function HomeContent() {
     if (search) q.set("search", search);
     if (tag) q.set("tag", tag);
 
-    setLoading(true);
     fetch(`/api/recipes?${q.toString()}`)
       .then((res) => res.json())
       .then((data) => {
+        if (!active) return;
         setRecipes(data.data || []);
         setMeta(data.meta || { page: 1, totalPages: 1 });
+        setLoading(false);
       })
-      .finally(() => setLoading(false));
+      .catch(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => { active = false; };
   }, [page, search, tag]);
 
   const handleFilter = (e: React.FormEvent) => {

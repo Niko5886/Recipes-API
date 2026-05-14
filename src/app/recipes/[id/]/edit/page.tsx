@@ -84,44 +84,44 @@ export default function EditRecipePage() {
       
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-sm">
         <div>
-          <label className="block text-slate-300 mb-1">Заглавие</label>
-          <input name="title" required value={formData.title} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+          <label htmlFor="title" className="block text-slate-300 mb-1">Заглавие</label>
+          <input id="title" name="title" required value={formData.title} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
         </div>
         
         <div>
-          <label className="block text-slate-300 mb-1">Описание</label>
-          <input name="description" value={formData.description} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+          <label htmlFor="description" className="block text-slate-300 mb-1">Описание</label>
+          <input id="description" name="description" value={formData.description} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-300 mb-1">Време (мин)</label>
-            <input name="cookingTime" type="number" required min="1" value={formData.cookingTime} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+            <label htmlFor="cookingTime" className="block text-slate-300 mb-1">Време (мин)</label>
+            <input id="cookingTime" name="cookingTime" type="number" required min="1" value={formData.cookingTime} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
           </div>
           <div>
-            <label className="block text-slate-300 mb-1">Порции</label>
-            <input name="servings" type="number" required min="1" value={formData.servings} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+            <label htmlFor="servings" className="block text-slate-300 mb-1">Порции</label>
+            <input id="servings" name="servings" type="number" required min="1" value={formData.servings} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
           </div>
         </div>
 
         <div>
-          <label className="block text-slate-300 mb-1">Съставки (по една на ред)</label>
-          <textarea name="ingredients" required value={formData.ingredients} onChange={handleChange} rows={4} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+          <label htmlFor="ingredients" className="block text-slate-300 mb-1">Съставки (по една на ред)</label>
+          <textarea id="ingredients" name="ingredients" required value={formData.ingredients} onChange={handleChange} rows={4} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
         </div>
 
         <div>
-          <label className="block text-slate-300 mb-1">Инструкции</label>
-          <textarea name="instructions" required value={formData.instructions} onChange={handleChange} rows={5} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+          <label htmlFor="instructions" className="block text-slate-300 mb-1">Инструкции</label>
+          <textarea id="instructions" name="instructions" required value={formData.instructions} onChange={handleChange} rows={5} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-300 mb-1">Категория</label>
-            <input name="category" value={formData.category} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+            <label htmlFor="category" className="block text-slate-300 mb-1">Категория</label>
+            <input id="category" name="category" value={formData.category} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
           </div>
           <div>
-            <label className="block text-slate-300 mb-1">Тагове (разделени със запетая)</label>
-            <input name="tags" placeholder="vegan, fast" value={formData.tags} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
+            <label htmlFor="tags" className="block text-slate-300 mb-1">Тагове (разделени със запетая)</label>
+            <input id="tags" name="tags" placeholder="vegan, fast" value={formData.tags} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
           </div>
         </div>
 

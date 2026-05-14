@@ -5,6 +5,7 @@ import RecipeCard from "@/components/RecipeCard";
 import { Recipe } from "@/db/schema";
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function MyRecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -34,7 +35,7 @@ export default function MyRecipesPage() {
       
       {recipes.length === 0 ? (
         <p className="text-slate-300">
-          Все още нямаш добавени рецепти. <a href="/recipes/new" className="text-cyan-400 underline">Създай първата си рецепта</a>.
+          Все още нямаш добавени рецепти. <Link href="/recipes/new" className="text-cyan-400 underline">Създай първата си рецепта</Link>.
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
   const offset = (page - 1) * pageSize;
 
-  let conditions = [];
+  const conditions = [];
 
   if (search) {
     conditions.push(
