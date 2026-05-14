@@ -3,6 +3,8 @@ import { users } from "@/db/schema";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
+import { signToken } from "@/lib/auth";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -24,7 +26,19 @@ export async function POST(request: Request) {
       .values({ email, password: hashedPassword })
       .returning({ id: users.id, email: users.email });
 
-    return NextResponse.json({ message: "Успешна регистрация", user: newUser }, { status: 201 });
+    const token = signToken({ userId: newUser.id });
+
+    // Съхраняваме токена в HTTP Only cookie за автоматичен логин
+    const cookieStore = await cookies();
+    cookieStore.set({
+      name: "token",
+      value: token,
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 дни
+    });
+
+    return NextResponse.json({ message: "Успешна регистрация", token, user: newUser }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Възникна грешка при регистрацията" }, { status: 500 });
