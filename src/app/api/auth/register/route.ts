@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { signToken } from "@/lib/auth";
-import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -28,17 +27,19 @@ export async function POST(request: Request) {
 
     const token = signToken({ userId: newUser.id });
 
-    // Съхраняваме токена в HTTP Only cookie за автоматичен логин
-    const cookieStore = await cookies();
-    cookieStore.set({
-      name: "token",
-      value: token,
+    const response = NextResponse.json(
+      { message: "Успешна регистрация", token, user: newUser },
+      { status: 201 }
+    );
+
+    response.cookies.set("token", token, {
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 дни
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
     });
 
-    return NextResponse.json({ message: "Успешна регистрация", token, user: newUser }, { status: 201 });
+    return response;
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Възникна грешка при регистрацията" }, { status: 500 });

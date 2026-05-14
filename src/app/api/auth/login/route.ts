@@ -4,7 +4,6 @@ import { signToken } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
-import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -26,17 +25,19 @@ export async function POST(request: Request) {
 
     const token = signToken({ userId: user.id });
 
-    // Съхраняваме токена в HTTP Only cookie
-    const cookieStore = await cookies();
-    cookieStore.set({
-      name: "token",
-      value: token,
+    const response = NextResponse.json(
+      { message: "Успешен вход", token, user: { id: user.id, email: user.email } },
+      { status: 200 }
+    );
+
+    response.cookies.set("token", token, {
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
     });
 
-    return NextResponse.json({ message: "Успешен вход", token, user: { id: user.id, email: user.email } }, { status: 200 });
+    return response;
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Възникна грешка при вход" }, { status: 500 });

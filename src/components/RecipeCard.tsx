@@ -2,7 +2,14 @@ import Link from "next/link";
 import { Recipe } from "@/db/schema";
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const tags: string[] = recipe.tags ? JSON.parse(recipe.tags) : [];
+  const tags: string[] = (() => {
+    try {
+      const parsed = JSON.parse(recipe.tags ?? "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  })();
 
   return (
     <div className="border border-slate-700 bg-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition">

@@ -34,8 +34,10 @@ export default function RecipeDetailsPage() {
   if (!recipe) return <p>Рецептата не е намерена.</p>;
 
   const isOwner = user?.id === recipe.userId;
-  const tags: string[] = recipe.tags ? JSON.parse(recipe.tags) : [];
-  const ingredients: string[] = typeof recipe.ingredients === 'string' ? JSON.parse(recipe.ingredients) : recipe.ingredients;
+  const tags: string[] = (() => { try { return JSON.parse(recipe.tags ?? "[]"); } catch { return []; } })();
+  const ingredients: string[] = (() => {
+    try { return JSON.parse(recipe.ingredients); } catch { return recipe.ingredients.split(",").map(i => i.trim()).filter(Boolean); }
+  })();
 
   return (
     <div className="max-w-3xl mx-auto bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg">

@@ -34,7 +34,7 @@ export default function EditRecipePage() {
           setFormData({
             title: data.title || "",
             description: data.description || "",
-            ingredients: (typeof data.ingredients === 'string' ? JSON.parse(data.ingredients) : data.ingredients).join('\n'),
+            ingredients: (() => { try { return JSON.parse(data.ingredients); } catch { return data.ingredients.split(",").map((i: string) => i.trim()); } })().join('\n'),
             instructions: data.instructions || "",
             cookingTime: data.cookingTime || 30,
             servings: data.servings || 2,
