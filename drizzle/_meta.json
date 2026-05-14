@@ -1,0 +1,10 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS \"users\" (\n\t\"id\" serial PRIMARY KEY NOT NULL,\n\t\"email\" varchar(255) NOT NULL,\n\t\"password\" text NOT NULL,\n\t\"created_at\" timestamp DEFAULT now(),\n\t\"updated_at\" timestamp DEFAULT now(),\n\tCONSTRAINT \"users_email_unique\" UNIQUE(\"email\")\n);\n--> statement-breakpoint\nCREATE TABLE IF NOT EXISTS \"recipes\" (\n\t\"id\" serial PRIMARY KEY NOT NULL,\n\t\"title\" varchar(255) NOT NULL,\n\t\"description\" text,\n\t\"ingredients\" text NOT NULL,\n\t\"instructions\" text NOT NULL,\n\t\"cooking_time\" integer NOT NULL,\n\t\"servings\" integer NOT NULL,\n\t\"tags\" text DEFAULT '[]',\n\t\"category\" varchar(100),\n\t\"user_id\" integer NOT NULL,\n\t\"date_created\" timestamp DEFAULT now(),\n\t\"updated_at\" timestamp DEFAULT now()\n);",
+      "breakpoints": true
+    }
+  ]
+}

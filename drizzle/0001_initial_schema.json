@@ -1,0 +1,152 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "id": "0001_initial_schema",
+  "prevId": "",
+  "source": "custom",
+  "snapshots": [
+    {
+      "tables": {
+        "users": {
+          "name": "users",
+          "schema": "",
+          "columns": {
+            "id": {
+              "name": "id",
+              "type": "serial",
+              "primaryKey": true,
+              "notNull": true
+            },
+            "email": {
+              "name": "email",
+              "type": "varchar(255)",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "password": {
+              "name": "password",
+              "type": "text",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "created_at": {
+              "name": "created_at",
+              "type": "timestamp",
+              "primaryKey": false,
+              "notNull": false,
+              "default": "now()"
+            },
+            "updated_at": {
+              "name": "updated_at",
+              "type": "timestamp",
+              "primaryKey": false,
+              "notNull": false,
+              "default": "now()"
+            }
+          },
+          "indexes": {},
+          "foreignKeys": {},
+          "compositePrimaryKeys": {},
+          "uniqueConstraints": {
+            "users_email_unique": {
+              "name": "users_email_unique",
+              "columns": ["email"]
+            }
+          }
+        },
+        "recipes": {
+          "name": "recipes",
+          "schema": "",
+          "columns": {
+            "id": {
+              "name": "id",
+              "type": "serial",
+              "primaryKey": true,
+              "notNull": true
+            },
+            "title": {
+              "name": "title",
+              "type": "varchar(255)",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "description": {
+              "name": "description",
+              "type": "text",
+              "primaryKey": false,
+              "notNull": false
+            },
+            "ingredients": {
+              "name": "ingredients",
+              "type": "text",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "instructions": {
+              "name": "instructions",
+              "type": "text",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "cooking_time": {
+              "name": "cooking_time",
+              "type": "integer",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "servings": {
+              "name": "servings",
+              "type": "integer",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "tags": {
+              "name": "tags",
+              "type": "text",
+              "primaryKey": false,
+              "notNull": false,
+              "default": "'[]'"
+            },
+            "category": {
+              "name": "category",
+              "type": "varchar(100)",
+              "primaryKey": false,
+              "notNull": false
+            },
+            "user_id": {
+              "name": "user_id",
+              "type": "integer",
+              "primaryKey": false,
+              "notNull": true
+            },
+            "date_created": {
+              "name": "date_created",
+              "type": "timestamp",
+              "primaryKey": false,
+              "notNull": false,
+              "default": "now()"
+            },
+            "updated_at": {
+              "name": "updated_at",
+              "type": "timestamp",
+              "primaryKey": false,
+              "notNull": false,
+              "default": "now()"
+            }
+          },
+          "indexes": {},
+          "foreignKeys": {},
+          "compositePrimaryKeys": {},
+          "uniqueConstraints": {}
+        }
+      },
+      "enums": {},
+      "schemas": {},
+      "_meta": {
+        "schemas": {},
+        "tables": {},
+        "columns": {}
+      }
+    }
+  ]
+}
