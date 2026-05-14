@@ -25,7 +25,7 @@ export default function RecipeDetailsPage() {
 
   const handleDelete = async () => {
     if (!confirm("Сигурни ли сте, че искате да изтриете тази рецепта?")) return;
-    
+
     await fetch(`/api/recipes/${id}`, { method: "DELETE" });
     router.push("/my-recipes");
   };

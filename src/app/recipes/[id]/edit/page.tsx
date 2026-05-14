@@ -9,7 +9,7 @@ export default function EditRecipePage() {
   const { id } = useParams();
   const { user, loading } = useAuth();
   const [fetching, setFetching] = useState(true);
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -81,13 +81,13 @@ export default function EditRecipePage() {
   return (
     <div className="max-w-2xl mx-auto bg-slate-900 border border-slate-800 p-8 rounded-xl">
       <h1 className="text-3xl font-bold mb-6">Редактирай рецепта</h1>
-      
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-sm">
         <div>
           <label htmlFor="title" className="block text-slate-300 mb-1">Заглавие</label>
           <input id="title" name="title" required value={formData.title} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
         </div>
-        
+
         <div>
           <label htmlFor="description" className="block text-slate-300 mb-1">Описание</label>
           <input id="description" name="description" value={formData.description} onChange={handleChange} className="w-full bg-slate-950 border border-slate-700 rounded-md p-2 text-white" />
