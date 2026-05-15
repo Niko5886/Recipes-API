@@ -3,6 +3,8 @@ import { recipes } from "@/db/schema";
 import { getUserIdFromRequest } from "@/lib/auth";
 import { eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { createR2Client, getR2Config } from '@/lib/r2';
 
 export async function GET(
   request: NextRequest,
@@ -59,6 +61,7 @@ export async function PUT(
         servings: body.servings !== undefined ? body.servings : existingRecipe.servings,
         tags: body.tags !== undefined ? JSON.stringify(body.tags) : existingRecipe.tags,
         category: body.category !== undefined ? body.category : existingRecipe.category,
+        photoUrl: body.shouldRemovePhoto ? null : existingRecipe.photoUrl,
         updatedAt: new Date(),
       })
       .where(eq(recipes.id, parseInt(id)))
@@ -92,6 +95,22 @@ export async function DELETE(
 
     if (!existingRecipe) {
       return NextResponse.json({ error: "Нямате права да изтриете тази рецепта или тя не съществува" }, { status: 403 });
+    }
+
+    if (existingRecipe.photoUrl) {
+      const r2 = getR2Config();
+      try {
+        const fileKey = existingRecipe.photoUrl.split('/').slice(-2).join('/'); // extracts "recipes/filename"
+        if (fileKey && r2) {
+          const s3Client = createR2Client(r2);
+          await s3Client.send(new DeleteObjectCommand({
+            Bucket: r2.bucket,
+            Key: fileKey,
+          }));
+        }
+      } catch (err) {
+        console.error('Failed to delete photo from R2:', err);
+      }
     }
 
     await db.delete(recipes).where(eq(recipes.id, parseInt(id)));

@@ -51,6 +51,10 @@ export default function RecipeDetailsPage() {
         )}
       </div>
 
+      {recipe.photoUrl && (
+        <img src={recipe.photoUrl} alt={recipe.title} className="w-full h-80 object-cover rounded-xl mb-6 shadow-md border border-slate-700" />
+      )}
+
       <div className="flex gap-4 text-sm text-slate-400 mb-8 border-b border-slate-700 pb-6">
         <span>🕒 {recipe.cookingTime} мин.</span>
         <span>🍽️ {recipe.servings} порции</span>

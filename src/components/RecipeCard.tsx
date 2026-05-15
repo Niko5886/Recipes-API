@@ -12,8 +12,11 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   })();
 
   return (
-    <div className="border border-slate-700 bg-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition">
-      <div>
+    <div className="border border-slate-700 bg-slate-800 rounded-xl flex flex-col justify-between hover:border-cyan-500/50 transition overflow-hidden">
+      {recipe.photoUrl && (
+        <img src={recipe.photoUrl} alt={recipe.title} className="w-full h-48 object-cover border-b border-slate-700" />
+      )}
+      <div className="p-5 flex flex-col flex-grow">
         <h3 className="text-xl font-bold text-white mb-2">{recipe.title}</h3>
         <p className="text-sm text-slate-300 mb-4 line-clamp-2">{recipe.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -23,12 +26,12 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
             </span>
           ))}
         </div>
-      </div>
-      <div className="flex justify-between items-center text-sm text-slate-400 mt-4 border-t border-slate-700 pt-4">
-        <span>🕒 {recipe.cookingTime} мин</span>
-        <Link href={`/recipes/${recipe.id}`} className="text-cyan-400 hover:underline">
-          Виж повече →
-        </Link>
+        <div className="flex justify-between items-center text-sm text-slate-400 mt-auto border-t border-slate-700 pt-4">
+          <span>🕒 {recipe.cookingTime} мин</span>
+          <Link href={`/recipes/${recipe.id}`} className="text-cyan-400 hover:underline">
+            Виж повече →
+          </Link>
+        </div>
       </div>
     </div>
   );

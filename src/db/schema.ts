@@ -21,6 +21,7 @@ export const recipes = pgTable("recipes", {
   servings: integer("servings").notNull(),
   tags: text("tags").default("[]"), // JSON array
   category: varchar("category", { length: 100 }),
+  photoUrl: text("photo_url"),
   userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   dateCreated: timestamp("date_created").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
